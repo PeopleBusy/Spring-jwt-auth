@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Spring-jwt-auth
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: abdel-rachid
+Built-By: Rachid
 Implementation-Vendor-Id: org.rachidcorp
-Build-Jdk: 1.8.0_151
+Build-Jdk: 1.8.0_152
 Implementation-URL: http://projects.spring.io/spring-boot/Spring-jwt-a
  uth/
 Created-By: Maven Integration for Eclipse

@@ -54,14 +54,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 		User springUser = (User) authResult.getPrincipal();
 		
-		String jwtToken = Jwts.builder()
+		String jwt = Jwts.builder()
 			.setSubject(springUser.getUsername())
 			.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
 			.signWith(SignatureAlgorithm.HS256, SecurityConstants.SECRET)
 			.claim("roles", springUser.getAuthorities())
 			.compact();
 		
-		response.addHeader(SecurityConstants.HEADER_STRING, jwtToken);
+		response.addHeader(SecurityConstants.HEADER_STRING, jwt);
 		
 	}
 }
