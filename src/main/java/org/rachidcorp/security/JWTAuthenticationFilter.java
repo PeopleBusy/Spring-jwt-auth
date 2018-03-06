@@ -56,7 +56,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		
 		String jwt = Jwts.builder()
 			.setSubject(springUser.getUsername())
-			.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
+			.setIssuedAt(new Date(System.currentTimeMillis()))
+			.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME * 1000))
 			.signWith(SignatureAlgorithm.HS256, SecurityConstants.SECRET)
 			.claim("roles", springUser.getAuthorities())
 			.compact();

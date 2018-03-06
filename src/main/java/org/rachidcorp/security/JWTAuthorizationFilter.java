@@ -29,7 +29,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 		response.addHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization");
 		response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Accept, Access-Control-Allow-Credentials, Authorization");	
 		
-		String jwt = request.getHeader(SecurityConstants.HEADER_STRING);
+		String authHeader = request.getHeader(SecurityConstants.HEADER_STRING);
 		
 		if(request.getMethod().equals("OPTIONS")) {
 			
@@ -37,14 +37,16 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 			
 		}else {
 			
-			if(jwt == null || !jwt.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+			if(authHeader == null || !authHeader.startsWith(SecurityConstants.TOKEN_PREFIX)) {
 				filterChain.doFilter(request, response); 
 				return;
 			}
 			
+			String jwt = authHeader.substring(7);
+			
 			Claims claims = Jwts.parser()
 				.setSigningKey(SecurityConstants.SECRET)
-				.parseClaimsJwt(jwt.replace(SecurityConstants.TOKEN_PREFIX, ""))
+				.parseClaimsJwt(jwt)
 				.getBody();
 			
 			String username = claims.getSubject();
