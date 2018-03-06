@@ -61,7 +61,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			.claim("roles", springUser.getAuthorities())
 			.compact();
 		
-		response.addHeader(SecurityConstants.HEADER_STRING, jwt);
+		response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + jwt);
 		
 	}
 }
